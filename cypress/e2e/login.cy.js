@@ -1,6 +1,8 @@
 import loginPage from '../support/pages/login'
 import shaversPage from '../support/pages/shavers'
 
+import data  from '../fixtures/users-login.json'
+
 
 describe('login', () => {
 
@@ -8,23 +10,15 @@ describe('login', () => {
 
         it('deve logar com sucesso', () => {
 
-            const user = {
-                name: 'Teste',
-                email: 'qax@mailinator.com',
-                password: 'teste123'
-            }
-
+            const user = data.success
             loginPage.submit(user.email, user.password)
+            cy.wait(5000)
             shaversPage.header.userShouldBeLoggedIn(user.name)
         })
 
         it('senha incorreta', () => {
 
-            const user = {
-                name: 'Teste',
-                email: 'qax@mailinator.com',
-                password: 'senhaerrada'
-            }
+            const user = data.invpass
 
             loginPage.submit(user.email, user.password)
 
@@ -35,11 +29,8 @@ describe('login', () => {
 
         it('email nao cadastrado', () => {
 
-            const user = {
-                name: 'Teste',
-                email: 'qax@404.com',
-                password: 'senhaerrada'
-            }
+            const user = data.email404
+            
 
             loginPage.submit(user.email, user.password)
 
@@ -54,15 +45,8 @@ describe('login', () => {
         })
 
         context('senha muito curta', () => {
-            const passwords = [
-                '1',
-                '12',
-                '123',
-                '1234',
-                '12345'
-            ]
-
-            passwords.forEach((p) => {
+        
+            data.shortpass.forEach((p) => {
                 it(`nao deve logar com a senha: ${p}`, () => {
                     loginPage.submit('qax@mailinator.com', p)
                     loginPage.alertShouldBe('Pelo menos 6 caracteres')
@@ -72,16 +56,9 @@ describe('login', () => {
         })
 
         context('email no formato incorreto', () => {
-            const emails = [
-                'qax&mailinator.com',
-                'qax.com',
-                '@',
-                '123456',
-                '!@#$%',
-                'abc123'
-            ]
+           
 
-            emails.forEach((e) => {
+            data.invemails.forEach((e) => {
                 it(`nao deve logar com o email: ${e}`, () => {
                     loginPage.submit(e, 'teste123')
                     loginPage.alertShouldBe('Informe um email válido')
