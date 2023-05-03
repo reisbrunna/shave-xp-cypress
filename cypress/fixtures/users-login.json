@@ -1,0 +1,33 @@
+{
+    "success": {
+        "name": "Teste",
+        "email": "qax@mailinator.com",
+        "password": "teste123"
+    },
+    "invpass": {
+        "name": "Teste",
+        "email": "qax@mailinator.com",
+        "password": "senhaerrada"
+    },
+    "email404": {
+        "name": "Teste",
+        "email": "qax@404.com",
+        "password": "teste123"
+    },
+    "shortpass": [
+        "1",
+        "12",
+        "123",
+        "1234",
+        "12345"
+    ],
+
+    "invemails": [
+        "qax&mailinator.com",
+        "qax.com",
+        "@",
+        "123456",
+        "!@#$%",
+        "abc123"
+    ]
+}
